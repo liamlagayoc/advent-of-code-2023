@@ -13,7 +13,7 @@ public class FileUtils {
             while(scanner.hasNextLine()) {
                 stringLines.add(scanner.nextLine());
             }
-            System.out.print("File successfully processed");
+            System.out.println("File successfully processed");
             return stringLines;
         } catch (FileNotFoundException fileNotFoundException) {
             System.out.println("File not found: " + filename);
