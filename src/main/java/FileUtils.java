@@ -16,7 +16,7 @@ public class FileUtils {
             System.out.print("File successfully processed");
             return stringLines;
         } catch (FileNotFoundException fileNotFoundException) {
-            System.out.print("File not found: " + filename);
+            System.out.println("File not found: " + filename);
             throw fileNotFoundException;
         }
     }

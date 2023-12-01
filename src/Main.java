@@ -1,5 +1,8 @@
+import main.java.CalibrationCalculator;
+
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        CalibrationCalculator calculator = new CalibrationCalculator("src/main/resources/input_day1.txt");
+        System.out.println("Calibrated values for input: " + calculator.calculateCalibrationValues());
     }
 }
