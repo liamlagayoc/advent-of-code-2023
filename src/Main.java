@@ -1,4 +1,4 @@
-import main.java.CalibrationCalculator;
+import main.java.day1.CalibrationCalculator;
 
 public class Main {
     public static void main(String[] args) {

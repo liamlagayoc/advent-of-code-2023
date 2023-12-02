@@ -1,6 +1,6 @@
-package test.java;
+package test.java.day1;
 
-import main.java.CalibrationLine;
+import main.java.day1.CalibrationLine;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

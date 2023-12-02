@@ -1,4 +1,4 @@
-package main.java;
+package main.java.day1;
 
 import java.io.FileNotFoundException;
 import java.util.LinkedHashMap;

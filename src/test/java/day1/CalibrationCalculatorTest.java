@@ -1,6 +1,6 @@
-package test.java;
+package test.java.day1;
 
-import main.java.CalibrationCalculator;
+import main.java.day1.CalibrationCalculator;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

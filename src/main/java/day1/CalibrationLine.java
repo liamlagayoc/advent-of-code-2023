@@ -1,4 +1,4 @@
-package main.java;
+package main.java.day1;
 
 import org.junit.platform.commons.util.StringUtils;
 
