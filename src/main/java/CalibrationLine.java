@@ -2,16 +2,17 @@ package main.java;
 
 import org.junit.platform.commons.util.StringUtils;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class CalibrationLine {
     private final String lineOfText;
-    private final List<String> digits;
+    private final LinkedHashMap<String, String> wordsToNumbers;
+    private HashMap<Integer, String> numbersFound;
 
-    public CalibrationLine(String lineOfText) {
+    public CalibrationLine(String lineOfText, LinkedHashMap<String, String> wordsToNumbers) {
         this.lineOfText = lineOfText;
-        this.digits = new ArrayList<>();
+        this.wordsToNumbers = wordsToNumbers;
+        this.numbersFound = new HashMap<>();
         buildDigitList();
     }
 
@@ -19,23 +20,33 @@ public class CalibrationLine {
         if (StringUtils.isBlank(lineOfText) || getNumberOfDigits() == 0) {
             return 0;
         }
-        return Integer.parseInt(
-            digits.get(0).concat(
-            digits.get(digits.size() - 1)
-            )
-        );
+
+        if (!numbersFound.isEmpty()) {
+            Integer[] orderedNumbers = numbersFound.keySet().toArray(new Integer[0]);
+            Arrays.sort(orderedNumbers);
+            return Integer
+                    .parseInt(getValueFromList(orderedNumbers[0])
+                    .concat(getValueFromList(orderedNumbers[orderedNumbers.length - 1])));
+        }
+        return 0;
+    }
+
+    private String getValueFromList(Integer value) {
+        return wordsToNumbers.get(numbersFound.get(value));
     }
 
     private void buildDigitList() {
-        char[] characters = lineOfText.toCharArray();
-        for(char c : characters) {
-            if(Character.isDigit(c)) {
-                digits.add(Character.toString(c));
+        for(Map.Entry<String, String> entry : wordsToNumbers.entrySet()) {
+            for (int index = lineOfText.indexOf(entry.getKey());
+                 index >= 0;
+                 index = lineOfText.indexOf(entry.getKey(), index + 1))
+            {
+                numbersFound.put(index, entry.getKey());
             }
         }
     }
 
     private int getNumberOfDigits() {
-        return digits.size();
+        return numbersFound.size();
     }
 }

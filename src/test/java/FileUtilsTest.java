@@ -43,6 +43,6 @@ public class FileUtilsTest {
         String filename = "src/test/resources/input_day1_test.txt";
         assertEquals(FileUtils.readFile(filename), expectedValues);
         String outputLogs = outContent.toString();
-        assertEquals("File successfully processed", outputLogs);
+        assertEquals("File successfully processed\n", outputLogs);
     }
 }

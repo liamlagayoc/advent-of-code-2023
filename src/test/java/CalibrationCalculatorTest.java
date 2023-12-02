@@ -22,4 +22,10 @@ public class CalibrationCalculatorTest {
         CalibrationCalculator calculator = new CalibrationCalculator("src/test/resources/input_day1_test.txt");
         assertEquals(calculator.calculateCalibrationValues(), 142);
     }
+
+    @Test
+    public void it_calculates_correct_calibration_value_when_file_contains_mix_of_words_and_numbers() {
+        CalibrationCalculator calculator = new CalibrationCalculator("src/test/resources/input_day1_part_2_test.txt");
+        assertEquals(calculator.calculateCalibrationValues(), 281);
+    }
 }
