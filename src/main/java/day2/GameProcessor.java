@@ -6,6 +6,7 @@ import main.java.day1.FileUtils;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class GameProcessor {
     private final String fileName;
@@ -16,10 +17,13 @@ public class GameProcessor {
     @Getter
     private List<Game> impossibleGameScenarios;
 
+    private List<Game> gameScenarios;
+
     public GameProcessor(String fileName) {
         this.fileName = fileName;
         this.possibleGameScenarios = new ArrayList<>();
         this.impossibleGameScenarios = new ArrayList<>();
+        this.gameScenarios = new ArrayList<>();
         processGames();
     }
 
@@ -31,17 +35,13 @@ public class GameProcessor {
                 int gameId = Integer.parseInt(gameParts[0].replace("Game ", ""));
                 Game game = new Game(gameId);
 
-                try {
-                    String[] cubeSets = gameParts[1].split("; ");
-                    for (String cubeSet : cubeSets) {
-                        buildCubeSetForGame(game, cubeSet);
-                    }
-                    possibleGameScenarios.add(game);
-                } catch (InvalidConfigurationException e) {
-                    System.out.println("Invalid configuration detected. " +
-                            "Adding game id: " + game.getGameId() + " to the impossible scenario list");
-                    impossibleGameScenarios.add(game);
+                String[] cubeSets = gameParts[1].split("; ");
+                for (String cubeSet : cubeSets) {
+                    buildCubeSetForGame(game, cubeSet);
                 }
+                gameScenarios.add(game);
+                if(isValidGame(game)) possibleGameScenarios.add(game);
+                else impossibleGameScenarios.add(game);
             }
             System.out.println("Finished processing");
         } catch (FileNotFoundException e) {
@@ -49,12 +49,16 @@ public class GameProcessor {
         }
     }
 
-    private void buildCubeSetForGame(Game game, String cubeSet) throws InvalidConfigurationException {
+    private boolean isValidGame(Game game) {
+        return game.getCubeSets().stream().filter(x -> !x.isValidScenario()).count() == 0;
+    }
+
+    private void buildCubeSetForGame(Game game, String cubeSet) {
         CubeSet set = new CubeSet();
         String[] cubes = cubeSet.split(", ");
         for(String cube : cubes) {
             int idx = cube.indexOf(" ");
-            set.addCubes(cube.substring(idx + 1), Integer.parseInt(cube.substring(0, idx)));
+            set.setCubeData(cube.substring(idx + 1), Integer.parseInt(cube.substring(0, idx)));
         }
         game.addCubeSet(set);
     }
@@ -62,6 +66,12 @@ public class GameProcessor {
     public int calculateSumIdsOfPossibleGames() {
         if(possibleGameScenarios.isEmpty()) return 0;
 
-        return possibleGameScenarios.stream().mapToInt(id -> id.getGameId()).sum();
+        return possibleGameScenarios.stream().mapToInt(Game::getGameId).sum();
+    }
+
+    public int calculateSumOfMinValuesPower() {
+        if(gameScenarios.isEmpty()) return 0;
+
+        return gameScenarios.stream().mapToInt(Game::calculatePowerOfMinValues).sum();
     }
 }

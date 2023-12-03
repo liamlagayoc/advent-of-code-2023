@@ -24,4 +24,16 @@ public class GameProcessorTest {
         assertEquals(processor.getPossibleGameScenarios().size(), 3);
         assertEquals(processor.getImpossibleGameScenarios().size(), 2);
     }
+
+    @Test
+    public void it_calculates_the_correct_sum_of_min_values_with_no_data() {
+        GameProcessor processor = new GameProcessor("src/test/resources/input_day2_test.txt");
+        assertEquals(processor.calculateSumOfMinValuesPower(), 0);
+    }
+
+    @Test
+    public void it_calculates_the_correct_sum_of_min_values() {
+        GameProcessor processor = new GameProcessor("src/test/resources/input_day2_test_data.txt");
+        assertEquals(processor.calculateSumOfMinValuesPower(), 2286);
+    }
 }
