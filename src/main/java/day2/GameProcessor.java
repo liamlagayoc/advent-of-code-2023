@@ -56,7 +56,7 @@ public class GameProcessor {
             int idx = cube.indexOf(" ");
             set.addCubes(cube.substring(idx + 1), Integer.parseInt(cube.substring(0, idx)));
         }
-        game.addCubeSet(List.of(set));
+        game.addCubeSet(set);
     }
 
     public int calculateSumIdsOfPossibleGames() {

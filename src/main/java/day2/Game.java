@@ -7,7 +7,7 @@ import java.util.List;
 
 public class Game {
     @Getter
-    private List<List<CubeSet>> cubeSets;
+    private List<CubeSet> cubeSets;
 
     @Getter
     private int gameId;
@@ -17,7 +17,7 @@ public class Game {
         cubeSets = new ArrayList<>();
     }
 
-    public void addCubeSet(List<CubeSet> cubeSet) {
+    public void addCubeSet(CubeSet cubeSet) {
         cubeSets.add(cubeSet);
     }
 }

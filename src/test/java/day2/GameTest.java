@@ -23,9 +23,9 @@ public class GameTest {
         set.addCubes("blue", 10);
         set.addCubes("green", 11);
         set.addCubes("red", 2);
-        game.addCubeSet(List.of(set));
+        game.addCubeSet(set);
 
-        assertEquals(game.getCubeSets().stream().findFirst().get(), List.of(set));
+        assertEquals(game.getCubeSets().stream().findFirst().get(), set);
     }
 
     @Test
