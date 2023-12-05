@@ -1,4 +1,4 @@
-package test.java.day3;
+package main.java.day3;
 
 import main.java.day3.Engine;
 
