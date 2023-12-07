@@ -31,12 +31,8 @@ public class ScratchCard {
     }
 
     public int calculateCardScore() {
-        List<Integer> matchingCards = winningCards.stream()
-                .filter(playerCards::contains)
-                .collect(Collectors.toList());
-
         int result = 0;
-        for(int i = 0; i < matchingCards.size(); i++) {
+        for(int i = 0; i < getMatchingScorecards().size(); i++) {
             if(i < 2) {
                 result += 1;
             }
@@ -45,5 +41,15 @@ public class ScratchCard {
             }
         }
         return result;
+    }
+
+    public int numberOfMatchingScorecards() {
+        return getMatchingScorecards().size();
+    }
+
+    private List<Integer> getMatchingScorecards() {
+        return winningCards.stream()
+                .filter(playerCards::contains)
+                .collect(Collectors.toList());
     }
 }

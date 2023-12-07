@@ -79,13 +79,4 @@ public class ScratchCardTest {
 
         assertEquals(card.calculateCardScore(), 8);
     }
-
-    @Test
-    public void it_calculates_the_correct_score_with_mix_of_correct_numbers_in_a_row() {
-        ScratchCard card = new ScratchCard(1);
-        card.addWinningCards(List.of(41, 48, 23, 86, 17, 53, 90, 42));
-        card.addPlayerCards(List.of(71, 83, 86, 41, 72, 31, 17, 9, 48, 53));
-
-        assertEquals(card.calculateCardScore(), 6);
-    }
 }

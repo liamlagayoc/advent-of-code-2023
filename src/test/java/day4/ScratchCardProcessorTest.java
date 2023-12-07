@@ -18,4 +18,10 @@ public class ScratchCardProcessorTest {
         ScratchCardProcessor processor = new ScratchCardProcessor("src/test/resources/input_day4_test_data.txt");
         assertEquals(processor.calculateTotalScratchCardPoints(), 13);
     }
+
+    @Test
+    public void it_returns_correct_sum_value_of_scratchcards_won() {
+        ScratchCardProcessor processor = new ScratchCardProcessor("src/test/resources/input_day4_test_data.txt");
+        assertEquals(processor.getScratchCardsWon().size(), 30);
+    }
 }

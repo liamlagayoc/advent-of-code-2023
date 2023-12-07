@@ -1,23 +1,29 @@
 package main.java.day4;
 
+import lombok.Getter;
 import main.java.day1.FileUtils;
 
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class ScratchCardProcessor {
     private final String filename;
 
+    @Getter
     private final List<ScratchCard> scratchCards;
+
+    @Getter
+    private final List<ScratchCard> scratchCardsWon;
 
     public ScratchCardProcessor(String filename) {
         this.filename = filename;
         this.scratchCards = new ArrayList<>();
+        this.scratchCardsWon = new ArrayList<>();
         processCards();
+        generateScratchCardsWon(this.scratchCards);
     }
 
-    public void processCards() {
+    private void processCards() {
         try {
             List<String> cards = FileUtils.readFile(filename);
             for(String card : cards) {
@@ -55,5 +61,20 @@ public class ScratchCardProcessor {
 
     public int calculateTotalScratchCardPoints() {
         return scratchCards.stream().mapToInt(ScratchCard::calculateCardScore).sum();
+    }
+
+    private void generateScratchCardsWon(List<ScratchCard> cards) {
+        for(ScratchCard card : cards) {
+            scratchCardsWon.add(card);
+
+            int numberOfCardsWon = card.numberOfMatchingScorecards();
+
+            if (numberOfCardsWon > 0) {
+                int index = scratchCards.indexOf(card);
+
+                List<ScratchCard> wonCards = scratchCards.subList(index + 1, index + numberOfCardsWon + 1);
+                generateScratchCardsWon(wonCards);
+            }
+        }
     }
 }
