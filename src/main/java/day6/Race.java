@@ -4,13 +4,13 @@ import lombok.Getter;
 
 public class Race {
     @Getter
-    private final int lengthOfRace;
+    private final long lengthOfRace;
 
-    private final int recordDistance;
+    private final long recordDistance;
 
-    private int distanceCoveredInRace;
+    private long distanceCoveredInRace;
 
-    public Race(int lengthOfRace, int recordDistance) {
+    public Race(long lengthOfRace, long recordDistance) {
         this.lengthOfRace = lengthOfRace;
         this.recordDistance = recordDistance;
         this.distanceCoveredInRace = 0;

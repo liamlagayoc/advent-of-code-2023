@@ -2,15 +2,14 @@ package main.java.day6;
 
 import main.java.day1.FileUtils;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class RaceProcessor {
-    private final String filename;
+    protected final String filename;
 
-    private final List<Race> raceList;
+    protected final List<Race> raceList;
 
     public RaceProcessor(String filename) {
         this.filename = filename;
@@ -18,7 +17,7 @@ public class RaceProcessor {
         processRaces();
     }
 
-    public void processRaces() {
+    protected void processRaces() {
         try {
             List<String> timesAndDistances = FileUtils.readFile(filename);
             String[] raceTimes = timesAndDistances.get(0).split(": ")[1].trim().split("\\s+");
@@ -36,7 +35,7 @@ public class RaceProcessor {
         List<Integer> winningScenariosByRace = new ArrayList<>();
         for(Race race : raceList) {
             int winningScenarios = 0;
-            int raceTime = race.getLengthOfRace();
+            long raceTime = race.getLengthOfRace();
 
             for(int i = 1; i <= raceTime; i++) {
                 race.calculateDistanceTravelledByBoat(i);
@@ -49,7 +48,7 @@ public class RaceProcessor {
         return winningScenariosByRace;
     }
 
-    public int maximumNumberOfWinningScenarios() {
+    public long maximumNumberOfWinningScenarios() {
         List<Integer> winningScenarios = winningScenariosByRace();
         int winningScenariosByRace = winningScenarios.size();
 
