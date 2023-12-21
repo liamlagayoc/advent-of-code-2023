@@ -9,12 +9,13 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.LongStream;
 
 public class Almanac {
     private final String filename;
 
     @Getter
-    private List<Long> seeds;
+    private List<Range> seeds;
 
     private List<Range> seedToSoilRange;
 
@@ -49,6 +50,7 @@ public class Almanac {
             this.lightToTemperateRange = populateRanges("light-to-temperature map:", "temperature-to-humidity map:", content);
             this.temperatureToHumidityRange = populateRanges("temperature-to-humidity map:", "humidity-to-location map:", content);
             this.humidityToLocationRange = populateRanges("humidity-to-location map:", content);
+            System.out.println("ALMANAC PROCESSED");
         } catch(FileNotFoundException e) {
             System.out.println("File not found: " + filename);
             return false;
@@ -77,8 +79,12 @@ public class Almanac {
 
     public void populateSeeds(String seeds) {
         if (!seeds.isEmpty()) {
-            long[] seedValues = Arrays.stream(seeds.split(" ")).mapToLong(Long::parseLong).toArray();
-            this.seeds.addAll(Arrays.stream(seedValues).boxed().collect(Collectors.toList()));
+            String[] seedData = seeds.split(" ");
+            for(int i = 0; i < seedData.length; i = i + 2) {
+                long startNumber = Long.parseLong(seedData[i]);
+                long rangeNumber = Long.parseLong(seedData[i + 1]);
+                this.seeds.add(new Range(startNumber, (startNumber + rangeNumber) - 1L, rangeNumber));
+            }
         }
     }
 
@@ -110,12 +116,18 @@ public class Almanac {
     }
 
     public long getMinimumSeedLocation() {
-        List<Long> seedLocations = new ArrayList<>();
+        long minimumLocation = Long.MAX_VALUE;
 
-        for(long seed : seeds) {
-            seedLocations.add(getLocationForSeed(seed));
+        for(Range seed : seeds) {
+            for(long i = 0; i < seed.getRangeLength(); i++) {
+                long locationValue = getLocationForSeed(seed.getValueInRange(i));
+                if(locationValue < minimumLocation) {
+                    minimumLocation = locationValue;
+                }
+            }
         }
 
-        return Collections.min(seedLocations);
+        System.out.println("MIN LOCATION VALUE: " + minimumLocation);
+        return minimumLocation;
     }
 }

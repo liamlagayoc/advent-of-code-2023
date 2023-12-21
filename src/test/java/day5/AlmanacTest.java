@@ -1,6 +1,7 @@
 package test.java.day5;
 
 import main.java.day5.Almanac;
+import main.java.day5.Range;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -14,22 +15,15 @@ public class AlmanacTest {
     }
 
     @Test
-    void it_has_the_correct_maps_to_store_information() {
-        Almanac almanac = new Almanac("foo");
-//        assertNotNull(almanac.getSeedToSoilMap());
-//        assertNotNull(almanac.getSoilToFertilizerMap());
-//        assertNotNull(almanac.getFertilizerToWaterMap());
-//        assertNotNull(almanac.getWaterToLightMap());
-//        assertNotNull(almanac.getLightToTemperatureMap());
-//        assertNotNull(almanac.getTemperatureToHumidityMap());
-//        assertNotNull(almanac.getHumidityToLocationMap());
-    }
-
-    @Test
-    void it_populates_the_seeds_correctly() {
-        String seeds = "52 74 90 19";
+    void it_populates_the_range_of_seeds_correctly() {
         Almanac almanac = new Almanac("src/test/resources/input_day5_test.txt");
-        assertEquals(almanac.getSeeds().size(), 4);
+        assertEquals(almanac.getSeeds().size(), 2);
+
+        Range firstRange = almanac.getSeeds().get(0);
+        assertEquals(firstRange.getRangeLength(), 14);
+
+        Range secondRange = almanac.getSeeds().get(1);
+        assertEquals(secondRange.getRangeLength(), 13);
     }
 
     @Test
@@ -53,6 +47,6 @@ public class AlmanacTest {
     void it_calculates_the_minimum_location_for_a_seed() {
         Almanac almanac = new Almanac("src/test/resources/input_day5_test.txt");
 
-        assertEquals(almanac.getMinimumSeedLocation(), 35);
+        assertEquals(almanac.getMinimumSeedLocation(), 46);
     }
 }

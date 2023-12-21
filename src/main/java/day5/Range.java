@@ -19,6 +19,12 @@ public class Range {
         this.destinationStart = destinationStart;
     }
 
+    public Range(long startValue, long endValue, long rangeLength) {
+        this.startValue = startValue;
+        this.endValue = endValue;
+        this.rangeLength = rangeLength;
+    }
+
     public long calculateFinalDestinationValue(long value) {
         return destinationStart + (value - startValue);
     }
@@ -27,4 +33,7 @@ public class Range {
         return value >= startValue && value <= endValue;
     }
 
+    public long getValueInRange(long index) {
+        return startValue + index;
+    }
 }
