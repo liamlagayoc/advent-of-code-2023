@@ -6,16 +6,16 @@ public enum CardStrength {
     Ace('A', 1),
     King('K', 2),
     Queen('Q', 3),
-    Jack('J', 4),
-    Ten('T', 5),
-    Nine('9', 6),
-    Eight('8', 7),
-    Seven('7', 8),
-    Six('6', 9),
-    Five('5', 10),
-    Four('4', 11),
-    Three('3', 12),
-    Two('2', 13);
+    Ten('T', 4),
+    Nine('9', 5),
+    Eight('8', 6),
+    Seven('7', 7),
+    Six('6', 8),
+    Five('5', 9),
+    Four('4', 10),
+    Three('3', 11),
+    Two('2', 12),
+    Joker('J', 13);
 
     private final char label;
 

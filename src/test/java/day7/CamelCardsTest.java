@@ -27,6 +27,6 @@ public class CamelCardsTest {
     @Test
     void it_calculates_the_correct_total_winnings() {
         CamelCards cards = new CamelCards("src/test/resources/input_day7_test.txt");
-        assertEquals(cards.calculateTotalWinnings(), 6440);
+        assertEquals(cards.calculateTotalWinnings(), 5905);
     }
 }

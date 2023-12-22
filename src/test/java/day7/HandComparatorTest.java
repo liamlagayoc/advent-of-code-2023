@@ -58,16 +58,48 @@ public class HandComparatorTest {
     @Test
     void it_returns_minus_one_when_hand_is_equal_but_card_one_has_higher_second_card() {
         Hand handOne = new Hand("AKAAA", 10);
-        Hand handTwo = new Hand("AJAAA", 10);
+        Hand handTwo = new Hand("AQAAA", 10);
 
         assertEquals(handComparator.compare(handOne, handTwo), -1);
     }
 
     @Test
-    void it_returns_minus_one_when_hand_is_equal_but_card_two_has_higher_second_card() {
+    void it_returns_one_when_card_two_hand_contains_jokers_and_is_better() {
         Hand handOne = new Hand("AKAAA", 10);
         Hand handTwo = new Hand("AJAAA", 10);
 
-        assertEquals(handComparator.compare(handTwo, handOne), 1);
+        assertEquals(handComparator.compare(handOne, handTwo), 1);
+    }
+
+    @Test
+    void it_returns_one_when_card_one_hand_contains_jokers_and_is_better() {
+        Hand handOne = new Hand("AJAAA", 10);
+        Hand handTwo = new Hand("AKAAA", 10);
+
+        assertEquals(handComparator.compare(handOne, handTwo), -1);
+    }
+
+    @Test
+    void it_returns_one_when_hand_is_equal_but_card_two_has_higher_second_card() {
+        Hand handOne = new Hand("AKAAA", 10);
+        Hand handTwo = new Hand("AJAAA", 10);
+
+        assertEquals(handComparator.compare(handOne, handTwo), 1);
+    }
+
+    @Test
+    void it_returns_one_when_hand_is_equal_but_card_two_has_higher_card_first() {
+        Hand handOne = new Hand("2JK89", 10);
+        Hand handTwo = new Hand("2QKK9", 10);
+
+        assertEquals(handComparator.compare(handOne, handTwo), 1);
+    }
+
+    @Test
+    void it_returns_minus_one_when_hand_is_equal_but_card_two_has_higher_card_first() {
+        Hand handOne = new Hand("2QKK9", 10);
+        Hand handTwo = new Hand("2JK89", 10);
+
+        assertEquals(handComparator.compare(handOne, handTwo), -1);
     }
 }
